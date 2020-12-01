@@ -67,3 +67,30 @@ rgb_img = cv2.merge([r,g,b])
 plt.imshow(rgb_img)
 plt.title('AUREBESH ORIGINAL IMAGE')
 plt.show()
+
+
+# Preprocess image - calling the different preprocessing functions and saving the instance
+#using the output of the grayscale preprocessing as the input for the other preprocesses 
+
+gray = get_grayscale(image)
+thresh = thresholding(gray)
+opening = opening(gray)
+canny = canny(gray)
+images = {'gray': gray, 
+          'thresh': thresh, 
+          'opening': opening, 
+          'canny': canny}
+
+# Plot images after preprocessing
+
+fig = plt.figure(figsize=(13,13))
+ax = []
+
+rows = 2
+columns = 2
+keys = list(images.keys())
+for i in range(rows*columns):
+    ax.append(fig.add_subplot(rows, columns, i+1) )
+    ax[-1].set_title('AUREBESH - ' + keys[i]) 
+    plt.imshow(images[keys[i]], cmap='gray')
+   
